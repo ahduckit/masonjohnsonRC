@@ -53,7 +53,18 @@ export function extractMatchingRows(html) {
   let m;
   while ((m = rowRegex.exec(html)) !== null) {
     const rowHtml = m[1];
-    const rowText = rowHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    let rowText = rowHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    // LiveRC embeds a hidden ISO-format sort key immediately before
+    // the visible 12-hour time, often with NO separator between them
+    // (e.g. "2026-09-03 18:15:51" directly followed by "6:15:51pm").
+    // Confirmed against a real session page — without stripping this,
+    // the hidden month/day ("09", "03") get picked up as false "laps"
+    // matches ahead of the real lap count. Strip it before anything
+    // else touches the row text.
+    rowText = rowText
+      .replace(/\d{4}-\d{2}-\d{2}(?:\s+\d{1,2}:\d{2}(?::\d{2})?)?\s*/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
     if (rowText.toUpperCase().includes(DRIVER_NAME) || rowText.includes(TRANSPONDER)) {
       rows.push(rowText);
     }
