@@ -1,27 +1,22 @@
 name: Update Live Timing
-# Re-registration nudge: pushing this file to the default branch forces
-# GitHub to refresh a stale/silent schedule trigger (known issue,
-# especially following platform incidents). Bump this line's date any
-# time scheduled runs go quiet again despite workflow_dispatch working.
-# Last touched: 2026-09-04
 
 "on":
+  # Primary trigger: an external cron service (cron-job.org) calls this
+  # via the GitHub API every 1-5 minutes. workflow_dispatch is what you
+  # already confirmed works reliably — this just automates calling it,
+  # bypassing GitHub's own schedule trigger, which was going silent.
+  workflow_dispatch: {}
+  # Backup only: GitHub's native schedule, kept as a low-frequency
+  # safety net in case the external cron service ever has an outage.
+  # Not relied on for the real cadence anymore.
   schedule:
-    # 5 minutes is GitHub Actions' fastest native schedule — it will not
-    # run more often than this no matter what cron string you use, and
-    # even 5 minutes isn't a hard guarantee (can slip under load).
-    # To get closer to ~1-minute updates anyway, each run below loops
-    # internally every ~60s for its own 5-minute window, so a new
-    # scheduled trigger picks up right as the previous run's loop ends.
-    - cron: '*/5 * * * *'
-  workflow_dispatch: {} # lets you trigger it manually from the Actions tab
+    - cron: '*/15 * * * *'
 
 permissions:
   contents: write # needed to commit live-timing.json back to the repo
 
-# Prevents two runs from racing to commit/push at the same time if a
-# trigger fires while the previous run's loop is still going. Queues
-# them instead of running in parallel or canceling either one.
+# Prevents two runs (e.g. the external trigger and the backup schedule
+# landing close together) from racing to commit/push at the same time.
 concurrency:
   group: update-live-timing
   cancel-in-progress: false
@@ -36,29 +31,18 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v5
         with:
-          node-version: '24' # matches where GitHub Actions runners are headed (Node 20 removed Sept 16, 2026)
+          node-version: '24'
 
-      - name: Poll LiveRC roughly every 60 seconds for this run's 5-minute window
+      - name: Fetch latest LiveRC data
+        run: node update-timing.mjs
+
+      - name: Commit updated data if it changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          for i in 1 2 3 4 5; do
-            echo "--- Poll $i of 5 ---"
-            node update-timing.mjs
-
-            git add live-timing.json
-            if ! git diff --quiet --cached; then
-              # Pull in case a queued run from concurrency already pushed
-              # since this run started, then commit and push this update.
-              git pull --rebase --autostash
-              git commit -m "Update live timing data [skip ci]"
-              git push
-            else
-              echo "No change, skipping commit"
-            fi
-
-            if [ "$i" -lt 5 ]; then
-              sleep 60
-            fi
-          done
+          git add live-timing.json
+          if ! git diff --quiet --cached; then
+            git pull --rebase --autostash
+            git commit -m "Update live timing data [skip ci]"
+            git push
+          fi
