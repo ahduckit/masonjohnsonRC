@@ -687,7 +687,7 @@
        { ok, trackStatus: 'green'|'off', trackStatusLabel, lastLap,
          rows: [{pos, driver, cls, laps, bestLap, status}, ...] }
   --------------------------------------------------------------- */
-  const RELAY_URL = 'data/live-timing.json';
+  const RELAY_URL = 'live-timing.json';
 
   async function fetchTimingData(){
     if (!RELAY_URL) return null; // no data source configured — stays in standby
