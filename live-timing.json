@@ -14,13 +14,30 @@
     }
   ],
   "recentSessions": [
-    { "date": "2026-09-03", "time": "6:15:51pm", "laps": 59, "fastestLap": "24.904s", "avgLap": "41.106s" },
-    { "date": "2026-09-03", "time": "5:34:44pm", "laps": 29, "fastestLap": "25.327s", "avgLap": "42.013s" },
-    { "date": "2026-09-03", "time": "4:59:55pm", "laps": 26, "fastestLap": "25.695s", "avgLap": "53.135s" }
+    {
+      "date": "2026-09-03",
+      "time": "6:15:51pm",
+      "laps": 59,
+      "fastestLap": "24.904s",
+      "avgLap": "41.106s"
+    },
+    {
+      "date": "2026-09-03",
+      "time": "5:34:44pm",
+      "laps": 29,
+      "fastestLap": "25.327s",
+      "avgLap": "42.013s"
+    },
+    {
+      "date": "2026-09-03",
+      "time": "4:59:55pm",
+      "laps": 26,
+      "fastestLap": "25.695s",
+      "avgLap": "53.135s"
+    }
   ],
   "sessionTime": "6:15:51pm",
   "date": "2026-09-03",
-  "asOf": "2026-09-04T04:30:00.000Z",
-  "source": "practice",
-  "note": "Manually seeded from a verified LiveRC session (fixed a lap-count parsing bug). GitHub Actions will overwrite this with fresh data once the workflow runs in your repo."
+  "asOf": "2026-09-04T04:37:43.133Z",
+  "source": "practice"
 }
