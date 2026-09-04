@@ -409,10 +409,10 @@
     <div class="wrap brands-inner">
       <span class="brands-label">Running</span>
       <div class="brands-track">
-        <span class="brand-logo"><img src="assets/team-associated.png" alt="Team Associated"></span>
-        <span class="brand-logo"><img src="assets/jconcepts.png" alt="JConcepts"></span>
-        <span class="brand-logo"><img src="assets/hobbywing.png" alt="Hobbywing"></span>
-        <span class="brand-logo"><img src="assets/1up.png" alt="1UP Racing"></span>
+        <span class="brand-logo"><img src="team-associated.png" alt="Team Associated"></span>
+        <span class="brand-logo"><img src="jconcepts.png" alt="JConcepts"></span>
+        <span class="brand-logo"><img src="hobbywing.png" alt="Hobbywing"></span>
+        <span class="brand-logo"><img src="1up.png" alt="1UP Racing"></span>
       </div>
     </div>
   </div>
@@ -444,7 +444,7 @@
     <div class="about-grid">
       <div class="plate reveal">
         <!-- PHOTO SWAP: replace .plate-placeholder div below with
-             <img src="assets/mason.jpg" alt="Mason Johnson"> -->
+             <img src="mason.jpg" alt="Mason Johnson"> -->
         <div class="plate-placeholder">
           <svg width="52" height="52" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="2" y="5" width="20" height="15" rx="1.5" stroke="var(--steel)" stroke-width="1.4"/>
@@ -669,7 +669,7 @@
      LIVE TIMING DATA SOURCE
      Default setup: a GitHub Actions workflow (.github/workflows/
      update-timing.yml) fetches LiveRC every 15 minutes and commits
-     the result to data/live-timing.json. This site just fetches that
+     the result to live-timing.json. This site just fetches that
      JSON file like any other static asset — no server running
      anywhere, works on GitHub Pages with zero extra hosting.
      Not true real-time (updates on GitHub's schedule, not instantly),
@@ -679,10 +679,9 @@
        - a relative path to that JSON file (default — same repo,
          e.g. on GitHub Pages), or
        - the raw GitHub URL if this site is hosted somewhere else,
-         e.g. 'https://raw.githubusercontent.com/you/repo/main/data/live-timing.json'
-       - a real live server instead (relay-node/ or relay-php/, see
-         their READMEs) if you want closer-to-live updates and don't
-         mind running a separate service.
+         e.g. 'https://raw.githubusercontent.com/you/repo/main/live-timing.json'
+       - or any live server's URL, if you build one later for
+         closer-to-live updates instead of the 15-minute refresh.
      Whichever it is, the shape returned must be:
        { ok, trackStatus: 'green'|'off', trackStatusLabel, lastLap,
          rows: [{pos, driver, cls, laps, bestLap, status}, ...] }

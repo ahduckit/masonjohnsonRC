@@ -1,61 +1,61 @@
-# Mason Johnson RC — Site + Live Timing (GitHub-only setup)
+# Mason Johnson RC — Site + Live Timing
 
-This setup needs **no separate hosting service** for live timing —
-just GitHub Pages (serves the site) and GitHub Actions (keeps the
-timing data current). No Koyeb, no Vercel, no PHP host required.
+Flat layout — every file lives at the repo root, except
+`.github/workflows/`, which GitHub requires to be exactly there (it
+won't recognize workflow files anywhere else — this is a hard
+platform rule, not a choice).
 
-## How it works
+## Files
 
-1. `.github/workflows/update-timing.yml` runs every 15 minutes on
-   GitHub's own servers.
-2. It runs `scripts/update-timing.mjs`, which fetches LiveRC's
-   practice page for today, finds Mason's most recent session, and
-   writes the result to `data/live-timing.json`.
+- `index.html` — the site
+- `1up.png`, `hobbywing.png`, `jconcepts.png`, `team-associated.png` —
+  sponsor/gear logos shown in the header strip
+- `live-timing.json` — the current timing data, overwritten
+  automatically (see below)
+- `core.js` — LiveRC fetch/parse logic
+- `update-timing.mjs` — runs `core.js` and writes `live-timing.json`
+- `.github/workflows/update-timing.yml` — runs `update-timing.mjs` on
+  a schedule
+
+## How live timing works
+
+1. The GitHub Actions workflow runs roughly every 15 minutes.
+2. It runs `node update-timing.mjs`, which fetches LiveRC's practice
+   page for today, finds Mason's most recent session, and overwrites
+   `live-timing.json`.
 3. It commits that file back to the repo.
-4. The site (`index.html`) just fetches `data/live-timing.json` like
-   any other static file — GitHub Pages serves it, no server involved.
+4. `index.html` fetches `live-timing.json` like any other static
+   file — GitHub Pages serves it, no server involved anywhere.
 
 ## Setting it up
 
-1. Push this whole folder to a GitHub repo.
-2. In the repo's **Settings → Pages**, enable Pages (source: the
-   branch you pushed to, root folder).
-3. In the repo's **Settings → Actions → General**, confirm "Read and
-   write permissions" is enabled for the `GITHUB_TOKEN` (needed for
-   the workflow to commit the updated JSON file back — this is usually
-   on by default for new repos, but worth checking).
-4. That's it. The workflow starts running on its 15-minute schedule
-   automatically. You can also trigger it manually any time from the
-   repo's **Actions** tab → "Update Live Timing" → "Run workflow".
+1. Push this repo to GitHub.
+2. **Settings → Pages** — enable Pages (source: the branch you
+   pushed, root folder).
+3. **Settings → Actions → General → Workflow permissions** — set to
+   "Read and write permissions." The workflow needs this to commit
+   `live-timing.json` back to the repo.
+4. Done. The workflow runs on its own from here. You can also trigger
+   it manually from the **Actions** tab → "Update Live Timing" → "Run
+   workflow."
 
 ## Honest limitations
 
-- **Not real-time.** This reflects LiveRC's own page data, refreshed
-  every 15 minutes by GitHub's schedule — not sub-second telemetry
-  during an active run. LiveRC doesn't expose a public real-time API.
-- **GitHub's cron isn't exact.** Scheduled workflows can run a few
-  minutes late under GitHub's load — treat "every 15 minutes" as
-  "roughly every 15 minutes."
-- **60-day auto-disable.** GitHub automatically disables scheduled
-  workflows on repos with no other activity for 60 days. A commit or
-  a manual "Run workflow" click re-enables it — worth knowing if the
-  data ever looks stale.
-- **Untested selectors.** The parser in `scripts/core.js` was built
-  from LiveRC pages read through a text-extraction tool, not raw HTML
-  inspection, so field extraction should work but might need a small
-  regex tweak once it's run against real traffic. Check the Actions
-  tab's run logs, or manually run `node scripts/update-timing.mjs`
-  locally, to see what it actually pulled.
+- **Not real-time.** Reflects LiveRC's page data on a ~15-minute
+  refresh, not live telemetry during a run — LiveRC doesn't expose a
+  public real-time API.
+- **GitHub's cron isn't exact** — can run a few minutes late under load.
+- **60-day auto-disable.** GitHub disables scheduled workflows after
+  60 days of no other repo activity. A commit or manual run
+  re-enables it.
+- **Untested selectors.** `core.js`'s parser was built from LiveRC
+  pages read through a text tool, not raw HTML inspection — should
+  work, but check the Actions run logs if `live-timing.json` ever
+  looks wrong after a run.
 
-## If you want closer-to-live updates later
+## Adding the driver photo later
 
-This same `scripts/core.js` logic also powers two other deployment
-options, if 15-minute-delayed data isn't fast enough:
-- `relay-node/` — a real server (deploy on Koyeb, free, allows
-  outbound requests)
-- `relay-php/` — a PHP version for a standard PHP host (not
-  InfinityFree — see that folder's README for why)
-
-Swapping to either just means changing `RELAY_URL` in `index.html`
-from `'data/live-timing.json'` to that server's URL — nothing else
-about the site changes.
+In `index.html`, search for `PHOTO SWAP` — there's a comment marking
+exactly where to swap the placeholder for `<img src="mason.jpg">` once
+you have the photo. Just drop `mason.jpg` at the repo root alongside
+everything else.

@@ -1,10 +1,7 @@
 // core.js
 //
-// Shared logic for the Mason Johnson RC live-timing relay. Both the
-// standalone Express server (server.js, for Koyeb/any Node host) and
-// the Vercel serverless function (../relay/api/live-timing.js) can
-// import this so the parsing logic lives in exactly one place.
-//
+// Shared logic for the Mason Johnson RC live-timing pipeline. Used by
+// update-timing.mjs (run on a schedule by GitHub Actions).
 // WHAT THIS DOES: fetches LiveRC's practice session list for today,
 // server-side (browsers can't reach LiveRC directly — it blocks
 // cross-origin requests), and looks for the tracked driver's most

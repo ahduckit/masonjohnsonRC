@@ -10,7 +10,7 @@ name: Update Live Timing
   workflow_dispatch: {} # lets you trigger it manually from the Actions tab
 
 permissions:
-  contents: write # needed to commit data/live-timing.json back to the repo
+  contents: write # needed to commit live-timing.json back to the repo
 
 jobs:
   update-timing:
@@ -25,12 +25,12 @@ jobs:
           node-version: '20'
 
       - name: Fetch latest LiveRC data
-        run: node scripts/update-timing.mjs
+        run: node update-timing.mjs
 
       - name: Commit updated data if it changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/live-timing.json
+          git add live-timing.json
           git diff --quiet --cached || git commit -m "Update live timing data [skip ci]"
           git push
