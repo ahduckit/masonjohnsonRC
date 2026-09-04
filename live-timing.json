@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "trackStatus": "off",
+  "trackStatusLabel": "Standby",
+  "lastLap": null,
+  "rows": [],
+  "asOf": null,
+  "note": "Placeholder — GitHub Actions hasn't run yet. This file is overwritten automatically once .github/workflows/update-timing.yml runs."
+}

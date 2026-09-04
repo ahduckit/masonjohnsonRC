@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mason Johnson RC | 17.5 Blinky Stock — Coyote Hobbies Raceway</title>
+<meta name="description" content="Mason Johnson RC — competitive 1/10 buggy racing at Coyote Hobbies Raceway, Victorville CA. RC10B7.1D 2WD / RC10B84 4WD, 17.5 blinky stock.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --carbon-0:#0a0c0f;
+    --carbon-1:#13161b;
+    --carbon-2:#1b1f26;
+    --line:#262b33;
+    --blue:#2e9be6;
+    --blue-dim:#1e6ba3;
+    --orange:#ff7a29;
+    --steel:#8b93a1;
+    --white:#f2f5f8;
+    --font-display:'Orbitron',sans-serif;
+    --font-body:'IBM Plex Sans',sans-serif;
+    --font-mono:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--carbon-0);
+    color:var(--white);
+    font-family:var(--font-body);
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px;}
+  ::selection{background:var(--orange);color:var(--carbon-0);}
+
+  /* carbon texture */
+  .carbon-bg{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 6px),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 6px);
+    background-size:8px 8px;
+  }
+
+  /* NAV */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(10,12,15,0.75);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{display:flex;align-items:center;justify-content:space-between;height:72px;}
+  .brand{
+    font-family:var(--font-display);font-weight:700;font-size:1.15rem;
+    letter-spacing:0.03em;display:flex;align-items:center;gap:14px;
+  }
+  .logo-badge{
+    width:40px;height:40px;flex:0 0 auto;position:relative;
+    border-radius:50%;cursor:pointer;
+    background:radial-gradient(circle at 33% 28%, #3a2020, #150a0a 72%);
+    border:1px solid rgba(255,90,90,0.4);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);font-weight:800;
+    font-size:0.85rem;letter-spacing:-0.03em;
+    box-shadow:
+      0 0 14px 2px rgba(255,40,40,0.55),
+      0 0 30px 6px rgba(255,40,40,0.22),
+      inset 0 2px 3px rgba(255,255,255,0.14),
+      inset 0 -4px 8px rgba(0,0,0,0.65);
+    transition:box-shadow .25s, transform .12s;
+  }
+  .lb-m,.lb-j{color:var(--white);text-shadow:0 0 6px rgba(255,255,255,0.4);}
+  .brand:hover .logo-badge{
+    box-shadow:
+      0 0 20px 4px rgba(255,50,50,0.8),
+      0 0 44px 10px rgba(255,50,50,0.35),
+      inset 0 2px 3px rgba(255,255,255,0.18),
+      inset 0 -4px 8px rgba(0,0,0,0.65);
+  }
+  .brand:active .logo-badge{transform:scale(0.92) translateY(1px);}
+  .brands-bar{
+    border-top:1px solid var(--line);
+    background:rgba(19,22,27,0.6);
+  }
+  .brands-inner{
+    display:flex;align-items:center;gap:16px;height:38px;
+  }
+  .brands-label{
+    font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.16em;color:var(--steel);
+    text-transform:uppercase;flex:0 0 auto;
+  }
+  .brands-track{
+    display:flex;align-items:center;gap:10px;overflow-x:auto;scrollbar-width:none;
+  }
+  .brands-track::-webkit-scrollbar{display:none;}
+  .brand-logo{
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+    height:38px;padding:6px 14px;border:1px solid var(--line);background:var(--carbon-2);
+    position:relative;transition:border-color .2s, opacity .2s;
+  }
+  .brand-logo::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:2px;
+    background:linear-gradient(var(--blue),var(--orange));
+  }
+  .brand-logo img{height:100%;max-height:22px;width:auto;display:block;object-fit:contain;}
+  .brand-logo:hover{border-color:var(--blue-dim);}
+  .brand-logo--white{background:#fff;border-color:#fff;}
+  .brand-logo--white img{max-height:26px;}
+  .brand small{
+    display:block;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;
+    color:var(--steel);font-weight:400;margin-top:2px;
+  }
+  nav ul{list-style:none;display:flex;gap:36px;}
+  nav ul a{
+    font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.08em;color:var(--steel);
+    text-transform:uppercase;transition:color .2s;position:relative;
+  }
+  nav ul a:hover{color:var(--blue);}
+  .nav-toggle{display:none;background:none;border:1px solid var(--line);color:var(--white);width:40px;height:40px;font-size:1.1rem;}
+
+  /* HERO */
+  .hero{
+    position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    padding-top:110px;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;top:-20%;right:-10%;width:60%;height:140%;
+    background:radial-gradient(ellipse at center, rgba(46,155,230,0.14), transparent 65%);
+    z-index:0;
+  }
+  .hero-watermark{
+    position:absolute;top:50%;right:-2%;transform:translateY(-50%);
+    display:flex;z-index:0;pointer-events:none;
+    font-family:var(--font-display);font-weight:800;
+    font-size:min(40vw,520px);line-height:1;letter-spacing:-0.02em;
+  }
+  .hero-watermark .wm-m{color:var(--blue);opacity:0.06;}
+  .hero-watermark .wm-j{color:var(--orange);opacity:0.06;}
+  .hero .wrap{position:relative;z-index:1;}
+  .eyebrow{
+    font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.22em;color:var(--orange);
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;text-transform:uppercase;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--orange);}
+  h1.hero-name{
+    font-family:var(--font-display);font-weight:800;
+    font-size:clamp(2.6rem,8vw,6.2rem);line-height:0.95;letter-spacing:-0.01em;
+    text-transform:uppercase;
+  }
+  h1.hero-name span{color:transparent;-webkit-text-stroke:1.5px var(--steel);}
+  .hero-sub{
+    margin-top:24px;font-size:1.05rem;color:var(--steel);max-width:520px;
+  }
+  .hero-sub b{color:var(--white);font-weight:600;}
+
+  /* transponder stat strip */
+  .readout{
+    margin-top:52px;display:grid;grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--line);background:var(--carbon-1);
+  }
+  .readout .cell{
+    padding:18px 20px;border-right:1px solid var(--line);
+  }
+  .readout .cell:last-child{border-right:none;}
+  .readout .cell .label{
+    font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.14em;color:var(--steel);
+    text-transform:uppercase;margin-bottom:8px;
+  }
+  .readout .cell .value{
+    font-family:var(--font-mono);font-weight:600;font-size:1.4rem;color:var(--orange);
+    text-shadow:0 0 18px rgba(255,122,41,0.45);letter-spacing:0.02em;
+  }
+  .readout .cell .value.blue{color:var(--blue);text-shadow:0 0 18px rgba(46,155,230,0.45);}
+
+  /* TRACK STATUS — inline in header nav */
+  .nav-right{display:flex;align-items:center;gap:28px;}
+  .nav-status{
+    display:flex;align-items:center;gap:10px;
+    padding:7px 14px;border:1px solid var(--line);background:var(--carbon-1);
+  }
+  .led{
+    width:9px;height:9px;border-radius:50%;flex:0 0 auto;
+    background:#4a5361;box-shadow:0 0 6px rgba(74,83,97,0.6);
+    transition:background .3s, box-shadow .3s;
+  }
+  .led.led-green{background:#39d97a;box-shadow:0 0 10px #39d97a,0 0 22px rgba(57,217,122,0.5);animation:ledpulse 1.4s infinite;}
+  .led.led-yellow{background:#ffcf3d;box-shadow:0 0 10px #ffcf3d,0 0 22px rgba(255,207,61,0.5);animation:ledpulse 1.4s infinite;}
+  .led.led-red{background:#ff4a4a;box-shadow:0 0 10px #ff4a4a,0 0 22px rgba(255,74,74,0.5);}
+  @keyframes ledpulse{0%,100%{opacity:1;}50%{opacity:0.55;}}
+  .nav-status-label{
+    font-family:var(--font-mono);font-size:0.66rem;letter-spacing:0.06em;color:var(--steel);
+    text-transform:uppercase;white-space:nowrap;
+  }
+  .nav-status-label b{color:var(--white);font-weight:500;}
+  .nav-status-divider{width:1px;height:16px;background:var(--line);flex:0 0 auto;}
+  .nav-status-lap-label{
+    font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--steel);
+    text-transform:uppercase;white-space:nowrap;
+  }
+  .nav-status-lap-value{
+    font-family:var(--font-mono);font-weight:600;font-size:0.9rem;color:var(--orange);
+    text-shadow:0 0 8px rgba(255,122,41,0.4);letter-spacing:0.02em;transition:opacity .15s;
+  }
+  .nav-status-lap-value.flash{opacity:0.25;}
+
+  @media (max-width:900px){
+    .nav-status-divider,.nav-status-lap-label,.nav-status-lap-value{display:none;}
+    .nav-status{padding:6px 10px;}
+  }
+
+  .scroll-cue{
+    position:absolute;bottom:32px;left:28px;font-family:var(--font-mono);font-size:0.65rem;
+    color:var(--steel);letter-spacing:0.15em;display:flex;align-items:center;gap:8px;z-index:1;
+  }
+  .scroll-cue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--steel),transparent);animation:scrolldown 1.8s ease-in-out infinite;}
+  @keyframes scrolldown{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+
+  /* SECTION shared */
+  section{position:relative;z-index:1;padding:120px 0;border-top:1px solid var(--line);}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:56px;}
+  .sec-num{font-family:var(--font-mono);color:var(--steel);font-size:0.8rem;letter-spacing:0.1em;}
+  h2{
+    font-family:var(--font-display);font-weight:600;text-transform:uppercase;
+    font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:0.01em;
+  }
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:start;}
+  .plate{
+    aspect-ratio:4/5;background:var(--carbon-1);border:1px solid var(--line);
+    position:relative;overflow:hidden;
+  }
+  .plate::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(46,155,230,0.05) 24px, rgba(46,155,230,0.05) 25px);
+  }
+  .plate img{width:100%;height:100%;object-fit:cover;display:block;}
+  .plate-placeholder{
+    position:relative;z-index:1;width:100%;height:100%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+    padding:22px;text-align:center;
+  }
+  .plate-placeholder svg{opacity:0.35;}
+  .plate-placeholder .ph-label{
+    font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.14em;color:var(--steel);
+    text-transform:uppercase;
+  }
+  .plate-tag{
+    position:absolute;left:22px;bottom:18px;z-index:1;
+    font-family:var(--font-mono);font-size:0.65rem;color:var(--steel);letter-spacing:0.12em;
+    text-shadow:0 1px 3px rgba(0,0,0,0.8);
+  }
+  .about-copy p{color:var(--steel);margin-bottom:18px;max-width:56ch;}
+  .about-copy p b{color:var(--white);font-weight:600;}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .chip{
+    font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.06em;color:var(--blue);
+    border:1px solid var(--blue-dim);padding:7px 13px;text-transform:uppercase;
+  }
+
+  /* GARAGE */
+  .cars{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  .car-card{
+    background:var(--carbon-1);border:1px solid var(--line);padding:30px;transition:border-color .25s, transform .25s;
+  }
+  .car-card:hover{border-color:var(--blue-dim);transform:translateY(-4px);}
+  .car-card .chassis-tag{font-family:var(--font-mono);font-size:0.68rem;color:var(--orange);letter-spacing:0.14em;margin-bottom:10px;}
+  .car-card h3{font-family:var(--font-display);font-size:1.7rem;text-transform:uppercase;margin-bottom:4px;}
+  .car-card .drive{font-family:var(--font-mono);font-size:0.75rem;color:var(--steel);margin-bottom:22px;}
+  .spec-table{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:0.82rem;}
+  .spec-table tr{border-top:1px solid var(--line);}
+  .spec-table td{padding:10px 0;}
+  .spec-table td:first-child{color:var(--steel);width:46%;}
+  .spec-table td:last-child{color:var(--white);text-align:right;}
+
+  /* LIVE TIMING */
+  .timing-panel{
+    background:var(--carbon-1);border:1px solid var(--line);padding:0;overflow:hidden;
+  }
+  .timing-head{
+    display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--line);
+    background:var(--carbon-2);
+  }
+  .timing-head .live-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 10px var(--orange);display:inline-block;margin-right:8px;animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+  .timing-head .lbl{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.14em;color:var(--steel);text-transform:uppercase;}
+  .timing-table{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:0.85rem;}
+  .timing-table th{
+    text-align:left;padding:12px 24px;color:var(--steel);font-weight:500;font-size:0.68rem;
+    letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid var(--line);
+  }
+  .timing-table td{padding:14px 24px;border-bottom:1px solid var(--line);}
+  .timing-table tr:last-child td{border-bottom:none;}
+  .timing-table td.best{color:var(--orange);}
+  .timing-table td.pos{color:var(--blue);font-weight:600;}
+  .timing-note{
+    padding:16px 24px;font-family:var(--font-mono);font-size:0.7rem;color:var(--steel);
+    border-top:1px solid var(--line);background:var(--carbon-2);
+  }
+
+  /* RESULTS */
+  .log-row{
+    display:grid;grid-template-columns:110px 1fr auto;gap:24px;align-items:center;
+    padding:22px 0;border-top:1px solid var(--line);
+  }
+  .log-row:last-child{border-bottom:1px solid var(--line);}
+  .log-date{font-family:var(--font-mono);font-size:0.75rem;color:var(--steel);}
+  .log-main .ev{font-family:var(--font-display);font-size:1.05rem;text-transform:uppercase;letter-spacing:0.01em;}
+  .log-main .cls{font-family:var(--font-mono);font-size:0.72rem;color:var(--steel);margin-top:3px;}
+  .log-result{font-family:var(--font-mono);font-size:0.85rem;color:var(--blue);text-align:right;white-space:nowrap;}
+
+  /* GALLERY */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);}
+  .g-tile{
+    aspect-ratio:1;background:var(--carbon-1);position:relative;overflow:hidden;
+    display:flex;align-items:flex-end;padding:14px;transition:background .25s;
+  }
+  .g-tile:hover{background:var(--carbon-2);}
+  .g-tile::before{
+    content:"";position:absolute;top:14px;left:14px;width:16px;height:16px;
+    border-top:1px solid var(--blue-dim);border-left:1px solid var(--blue-dim);opacity:.6;
+  }
+  .g-tile .fname{font-family:var(--font-mono);font-size:0.62rem;color:var(--steel);letter-spacing:0.08em;position:relative;z-index:1;}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.1em;color:var(--steel);text-transform:uppercase;margin-bottom:8px;}
+  .field input,.field textarea{
+    width:100%;background:var(--carbon-1);border:1px solid var(--line);color:var(--white);
+    padding:13px 14px;font-family:var(--font-body);font-size:0.92rem;
+  }
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--blue);}
+  .btn{
+    font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
+    background:var(--orange);color:var(--carbon-0);border:none;padding:14px 28px;font-weight:600;
+    cursor:pointer;transition:background .2s;
+  }
+  .btn:hover{background:#ff8f4d;}
+  .contact-info .row{display:flex;justify-content:space-between;padding:16px 0;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:0.85rem;}
+  .contact-info .row:last-child{border-bottom:1px solid var(--line);}
+  .contact-info .row span:first-child{color:var(--steel);}
+  .contact-info .row span:last-child{color:var(--blue);}
+  .sponsor-strip{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px;}
+  .sponsor-strip .sp{
+    font-family:var(--font-mono);font-size:0.7rem;color:var(--steel);border:1px dashed var(--line);
+    padding:10px 16px;letter-spacing:0.06em;
+  }
+
+  footer{
+    border-top:1px solid var(--line);padding:36px 0;position:relative;z-index:1;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  }
+  footer .fmono{font-family:var(--font-mono);font-size:0.7rem;color:var(--steel);letter-spacing:0.06em;}
+  footer .socials{display:flex;gap:20px;}
+  footer .socials a{font-family:var(--font-mono);font-size:0.72rem;color:var(--steel);text-transform:uppercase;letter-spacing:0.08em;}
+  footer .socials a:hover{color:var(--orange);}
+
+  @media (max-width:900px){
+    nav ul{display:none;}
+    .nav-toggle{display:block;}
+    .brands-label{display:none;}
+    .brands-inner{height:34px;}
+    .brand-logo{height:30px;padding:5px 10px;}
+    .brand-logo img{max-height:16px;}
+    .brand-logo--white img{max-height:18px;}
+    .about-grid,.cars,.contact-grid{grid-template-columns:1fr;}
+    .readout{grid-template-columns:repeat(2,1fr);}
+    .readout .cell:nth-child(2){border-right:none;}
+    .gallery{grid-template-columns:repeat(2,1fr);}
+    .log-row{grid-template-columns:1fr;gap:6px;}
+    .log-result{text-align:left;}
+  }
+</style>
+</head>
+<body>
+<div class="carbon-bg"></div>
+
+<header>
+  <nav class="wrap">
+    <div class="brand">
+      <div class="logo-badge"><span class="lb-m">M</span><span class="lb-j">J</span></div>
+      <div>MASON JOHNSON RC<small>17.5 BLINKY STOCK</small></div>
+    </div>
+    <div class="nav-right">
+      <ul>
+        <li><a href="#garage">Garage</a></li>
+        <li><a href="#timing">Live Timing</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-status">
+        <span class="led led-off" id="trackLed"></span>
+        <span class="nav-status-label">Track <b id="trackStatusText">Standby</b></span>
+        <span class="nav-status-divider"></span>
+        <span class="nav-status-lap-label">Last Lap</span>
+        <span class="nav-status-lap-value" id="lastLapValue">--.---</span>
+      </div>
+      <button class="nav-toggle" aria-label="menu">≡</button>
+    </div>
+  </nav>
+  <div class="brands-bar">
+    <div class="wrap brands-inner">
+      <span class="brands-label">Running</span>
+      <div class="brands-track">
+        <span class="brand-logo"><img src="assets/team-associated.png" alt="Team Associated"></span>
+        <span class="brand-logo"><img src="assets/jconcepts.png" alt="JConcepts"></span>
+        <span class="brand-logo"><img src="assets/hobbywing.png" alt="Hobbywing"></span>
+        <span class="brand-logo"><img src="assets/1up.png" alt="1UP Racing"></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-watermark" aria-hidden="true"><span class="wm-m">M</span><span class="wm-j">J</span></div>
+  <div class="wrap">
+    <div class="eyebrow">Coyote Hobbies Raceway · Victorville, CA</div>
+    <h1 class="hero-name">Mason<br>Johnson<span>.RC</span></h1>
+    <p class="hero-sub">Running <b>1/10 electric buggy</b> on high-grip sealed clay. <b>Rookie class</b>, transponder-timed every session — clean laps, no drama.</p>
+
+    <div class="readout reveal">
+      <div class="cell"><div class="label">Class</div><div class="value blue">Rookie</div></div>
+      <div class="cell"><div class="label">Track</div><div class="value blue">Coyote Clay</div></div>
+      <div class="cell"><div class="label">Last On Track</div><div class="value">Aug 29, 2026</div></div>
+      <div class="cell"><div class="label">Best Lap</div><div class="value" id="heroBestLap">25.197s</div></div>
+    </div>
+    <p style="margin-top:14px;font-family:var(--font-mono);font-size:0.7rem;color:var(--steel);letter-spacing:0.04em;">Transponder 7208001 · Fastest lap set in a 30-lap Rookie session, 12:07pm</p>
+  </div>
+  <div class="scroll-cue">SCROLL</div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Driver</h2><span class="sec-num">01 / DRIVER</span>
+    </div>
+    <div class="about-grid">
+      <div class="plate reveal">
+        <!-- PHOTO SWAP: replace .plate-placeholder div below with
+             <img src="assets/mason.jpg" alt="Mason Johnson"> -->
+        <div class="plate-placeholder">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="5" width="20" height="15" rx="1.5" stroke="var(--steel)" stroke-width="1.4"/>
+            <circle cx="12" cy="12.5" r="3.6" stroke="var(--steel)" stroke-width="1.4"/>
+            <path d="M8 5L9.5 2.5H14.5L16 5" stroke="var(--steel)" stroke-width="1.4"/>
+          </svg>
+          <div class="ph-label">Photo Pending</div>
+        </div>
+        <div class="plate-tag">MASON JOHNSON<br>ROOKIE · CA</div>
+      </div>
+      <div class="about-copy reveal">
+        <p>Racing out of <b>Coyote Hobbies Raceway</b> — an indoor, high-grip sealed clay track in Victorville, California, where a tenth of a second in rotation is the difference between a podium and a re-run.</p>
+        <p>Focused on <b>17.5 blinky stock</b>, splitting time between a <b>2WD Team Associated RC10B7.1D</b> and a <b>4WD RC10B84</b>, each dialed in specifically for Coyote's clay — not a generic setup sheet.</p>
+        <p>Every setup change gets logged, every run gets timed, and every track night moves the baseline forward.</p>
+        <div class="chips">
+          <span class="chip">Team Associated</span>
+          <span class="chip">17.5 Blinky Stock</span>
+          <span class="chip">Sealed Clay</span>
+          <span class="chip">LiveRC Timed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="garage">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Garage</h2><span class="sec-num">02 / CHASSIS</span>
+    </div>
+    <div class="cars">
+      <div class="car-card reveal">
+        <div class="chassis-tag">2WD · BALL DIFF</div>
+        <h3>RC10B7.1D</h3>
+        <div class="drive">Rear-motor 2WD buggy</div>
+        <table class="spec-table">
+          <tr><td>Differential</td><td>Ball diff, set-and-forget</td></tr>
+          <tr><td>Rotation source</td><td>Geometry &amp; roll control</td></tr>
+          <tr><td>Surface</td><td>Coyote sealed clay</td></tr>
+          <tr><td>Tire (fresh clay)</td><td>Smoothie 2 (slick)</td></tr>
+          <tr><td>Tire (greasy)</td><td>Positron S3 / AKA Rebar SS</td></tr>
+        </table>
+      </div>
+      <div class="car-card reveal">
+        <div class="chassis-tag">4WD · GEAR DIFFS</div>
+        <h3>RC10B84</h3>
+        <div class="drive">Mid-motor 4WD buggy</div>
+        <table class="spec-table">
+          <tr><td>Differentials</td><td>Front &amp; rear gear diffs</td></tr>
+          <tr><td>Hubs</td><td>HRC hubs</td></tr>
+          <tr><td>Brake setting</td><td>Low drag brake</td></tr>
+          <tr><td>Shock config</td><td>Eyelet position 0 (glued nights)</td></tr>
+          <tr><td>Dry-groove tire</td><td>JConcepts Aqua (A2)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="timing">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Live Timing</h2><span class="sec-num">03 / TRANSPONDER</span>
+    </div>
+    <div class="timing-panel reveal">
+      <div class="timing-head">
+        <div><span class="live-dot"></span><span class="lbl">Transponder Status</span></div>
+        <div class="lbl" id="timingClock">--:--:--</div>
+      </div>
+      <table class="timing-table">
+        <thead>
+          <tr><th>Pos</th><th>Driver</th><th>Class</th><th>Laps</th><th>Best Lap</th><th>Status</th></tr>
+        </thead>
+        <tbody id="timingBody">
+          <tr><td class="pos">—</td><td>Awaiting race day</td><td>17.5 Blinky</td><td>—</td><td class="best">—</td><td>Standby</td></tr>
+        </tbody>
+      </table>
+      <div class="timing-note">Feed connects to LiveRC race-day timing via relay · rows populate automatically once a heat goes green</div>
+    </div>
+
+    <div style="margin-top:52px;">
+      <div class="sec-head" style="margin-bottom:24px;">
+        <h3 style="font-family:var(--font-display);font-weight:600;text-transform:uppercase;font-size:1.3rem;">Practice Breakdown</h3>
+        <span class="sec-num">LAST 3 SESSIONS</span>
+      </div>
+      <div class="timing-panel reveal">
+        <table class="timing-table">
+          <thead>
+            <tr><th>Date</th><th>Time</th><th>Class</th><th>Laps</th><th>Fastest Lap</th><th>Avg Lap</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Aug 29, 2026</td><td>6:33pm</td><td>Rookie</td><td>31</td><td class="best">26.177s</td><td>40.580s</td></tr>
+            <tr><td>Aug 29, 2026</td><td>5:37pm</td><td>Rookie</td><td>23</td><td class="best">27.808s</td><td>39.768s</td></tr>
+            <tr><td>Aug 29, 2026</td><td>4:08pm</td><td>Rookie</td><td>38</td><td class="best">27.560s</td><td>38.692s</td></tr>
+          </tbody>
+        </table>
+        <div class="timing-note">Coyote Hobbies Raceway · Transponder 7208001 · Source: LiveRC practice log</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Race Log</h2><span class="sec-num">04 / RESULTS</span>
+    </div>
+    <div class="reveal">
+      <div class="log-row">
+        <div class="log-date">Aug 21–23, 2026</div>
+        <div class="log-main"><div class="ev">JConcepts Stock Nationals SN2</div><div class="cls">21.5 Stock Buggy · Qualified 27th of 33 → D-Main</div></div>
+        <div class="log-result">D-Main: 6th — 2 laps, 59.318s (retired early)</div>
+      </div>
+      <div class="log-row">
+        <div class="log-date">Jul 25, 2026</div>
+        <div class="log-main"><div class="ev">Summer Madness Off-Road Series Rnd 5</div><div class="cls">Rookie · Triple A-Main</div></div>
+        <div class="log-result">2nd overall · A1: 2nd · A2: 5th · A3: 2nd</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Gallery</h2><span class="sec-num">05 / PADDOCK</span>
+    </div>
+  </div>
+  <div class="gallery reveal">
+    <div class="g-tile"><span class="fname">PIT_B7.1D_01.JPG</span></div>
+    <div class="g-tile"><span class="fname">PIT_B84_02.JPG</span></div>
+    <div class="g-tile"><span class="fname">GRID_START_03.JPG</span></div>
+    <div class="g-tile"><span class="fname">PODIUM_04.JPG</span></div>
+    <div class="g-tile"><span class="fname">SETUP_SHEET_05.JPG</span></div>
+    <div class="g-tile"><span class="fname">TRACKSIDE_06.JPG</span></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Contact</h2><span class="sec-num">06 / PIT LANE</span>
+    </div>
+    <div class="contact-grid">
+      <form class="reveal" onsubmit="return false;">
+        <div class="field"><label>Name</label><input type="text" placeholder="Your name"></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+        <div class="field"><label>Message</label><textarea rows="5" placeholder="Sponsorship, racing, or general inquiry"></textarea></div>
+        <button class="btn" type="submit">Send Message</button>
+      </form>
+      <div class="reveal">
+        <div class="contact-info">
+          <div class="row"><span>Track</span><span>Coyote Hobbies Raceway</span></div>
+          <div class="row"><span>Location</span><span>Victorville, CA</span></div>
+          <div class="row"><span>Class</span><span>17.5 Blinky Stock</span></div>
+          <div class="row"><span>Chassis</span><span>RC10B7.1D · RC10B84</span></div>
+        </div>
+        <div class="sponsor-strip">
+          <div class="sp">SPONSOR SLOT</div>
+          <div class="sp">SPONSOR SLOT</div>
+          <div class="sp">SPONSOR SLOT</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="fmono" style="display:flex;align-items:center;gap:10px;">
+    <div class="logo-badge" style="width:22px;height:22px;font-size:0.6rem;"><span class="lb-m">M</span><span class="lb-j">J</span></div>
+    © <span id="yr"></span> MASON JOHNSON RC — COYOTE HOBBIES RACEWAY
+  </div>
+  <div class="socials">
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+    <a href="#">LiveRC</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // running clock in timing panel
+  function tick(){
+    const d = new Date();
+    document.getElementById('timingClock').textContent = d.toLocaleTimeString('en-US',{hour12:false});
+  }
+  tick(); setInterval(tick,1000);
+
+  /* ---------------------------------------------------------------
+     LIVE HUD — track status LED + last lap readout
+  --------------------------------------------------------------- */
+  const ledEl = document.getElementById('trackLed');
+  const statusTextEl = document.getElementById('trackStatusText');
+  const lastLapEl = document.getElementById('lastLapValue');
+
+  // status: 'green' (racing), 'yellow' (caution), 'red' (stopped), 'off' (no session)
+  function setTrackStatus(status, label){
+    ledEl.className = 'led led-' + status;
+    statusTextEl.textContent = label;
+  }
+
+  function setLastLap(seconds){
+    lastLapEl.classList.add('flash');
+    setTimeout(()=>{
+      lastLapEl.textContent = seconds;
+      lastLapEl.classList.remove('flash');
+    }, 120);
+  }
+
+  // Default state until a real feed is connected.
+  setTrackStatus('off', 'Standby');
+
+  /* ---------------------------------------------------------------
+     LIVE TIMING DATA SOURCE
+     Default setup: a GitHub Actions workflow (.github/workflows/
+     update-timing.yml) fetches LiveRC every 15 minutes and commits
+     the result to data/live-timing.json. This site just fetches that
+     JSON file like any other static asset — no server running
+     anywhere, works on GitHub Pages with zero extra hosting.
+     Not true real-time (updates on GitHub's schedule, not instantly),
+     but fully automated with nothing to deploy or pay for.
+
+     RELAY_URL can point to:
+       - a relative path to that JSON file (default — same repo,
+         e.g. on GitHub Pages), or
+       - the raw GitHub URL if this site is hosted somewhere else,
+         e.g. 'https://raw.githubusercontent.com/you/repo/main/data/live-timing.json'
+       - a real live server instead (relay-node/ or relay-php/, see
+         their READMEs) if you want closer-to-live updates and don't
+         mind running a separate service.
+     Whichever it is, the shape returned must be:
+       { ok, trackStatus: 'green'|'off', trackStatusLabel, lastLap,
+         rows: [{pos, driver, cls, laps, bestLap, status}, ...] }
+  --------------------------------------------------------------- */
+  const RELAY_URL = 'data/live-timing.json';
+
+  async function fetchTimingData(){
+    if (!RELAY_URL) return null; // no data source configured — stays in standby
+    try {
+      const res = await fetch(RELAY_URL, { cache: 'no-store' });
+      if (!res.ok) return null;
+      const data = await res.json();
+      return data && data.ok !== false ? data : null;
+    } catch {
+      return null; // unreachable — fail quietly, stay in standby
+    }
+  }
+
+  async function refreshTiming(){
+    const data = await fetchTimingData();
+    if(!data) return; // stay in standby state
+    const body = document.getElementById('timingBody');
+    body.innerHTML = data.rows.map(r => `
+      <tr>
+        <td class="pos">${r.pos}</td>
+        <td>${r.driver}</td>
+        <td>${r.cls}</td>
+        <td>${r.laps}</td>
+        <td class="best">${r.bestLap}</td>
+        <td>${r.status}</td>
+      </tr>`).join('');
+
+    // Drive the HUD from the same feed: data.trackStatus is 'green'|'yellow'|'red',
+    // data.lastLap is the most recent lap time for the tracked driver row.
+    if(data.trackStatus) setTrackStatus(data.trackStatus, data.trackStatusLabel || data.trackStatus.toUpperCase());
+    if(data.lastLap) setLastLap(data.lastLap);
+  }
+  refreshTiming();
+  setInterval(refreshTiming, 15000); // every 15 seconds
+</script>
+</body>
+</html>
