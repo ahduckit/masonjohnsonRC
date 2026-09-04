@@ -1,4 +1,9 @@
 name: Update Live Timing
+# Re-registration nudge: pushing this file to the default branch forces
+# GitHub to refresh a stale/silent schedule trigger (known issue,
+# especially following platform incidents). Bump this line's date any
+# time scheduled runs go quiet again despite workflow_dispatch working.
+# Last touched: 2026-09-04
 
 "on":
   schedule:
