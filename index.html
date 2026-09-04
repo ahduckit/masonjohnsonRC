@@ -395,6 +395,13 @@
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <div class="nav-status">
+        <span class="led led-off" id="trackLed"></span>
+        <span class="nav-status-label">Track <b id="trackStatusText">Standby</b></span>
+        <span class="nav-status-divider"></span>
+        <span class="nav-status-lap-label">Last Lap</span>
+        <span class="nav-status-lap-value" id="lastLapValue">--.---</span>
+      </div>
       <button class="nav-toggle" aria-label="menu">≡</button>
     </div>
   </nav>
@@ -406,13 +413,6 @@
         <span class="brand-logo"><img src="jconcepts.png" alt="JConcepts"></span>
         <span class="brand-logo"><img src="hobbywing.png" alt="Hobbywing"></span>
         <span class="brand-logo"><img src="1up.png" alt="1UP Racing"></span>
-      </div>
-       <div class="nav-status">
-        <span class="led led-off" id="trackLed"></span>
-        <span class="nav-status-label">Track <b id="trackStatusText">Standby</b></span>
-        <span class="nav-status-divider"></span>
-        <span class="nav-status-lap-label">Last Lap</span>
-        <span class="nav-status-lap-value" id="lastLapValue">--.---</span>
       </div>
     </div>
   </div>
@@ -428,7 +428,7 @@
     <div class="readout reveal">
       <div class="cell"><div class="label">Class</div><div class="value blue">Rookie</div></div>
       <div class="cell"><div class="label">Track</div><div class="value blue">Coyote Clay</div></div>
-      <div class="cell"><div class="label">Last On Track</div><div class="value">Aug 29, 2026</div></div>
+      <div class="cell"><div class="label">Last On Track</div><div class="value" id="heroLastOnTrack">Aug 29, 2026</div></div>
       <div class="cell"><div class="label">Best Lap</div><div class="value" id="heroBestLap">25.197s</div></div>
     </div>
     <p style="margin-top:14px;font-family:var(--font-mono);font-size:0.7rem;color:var(--steel);letter-spacing:0.04em;">Transponder 7208001 · Fastest lap set in a 30-lap Rookie session, 12:07pm</p>
@@ -700,6 +700,16 @@
     }
   }
 
+  // Formats an ISO date ('2026-08-29') as 'Aug 29, 2026' to match the
+  // hero readout's existing style.
+  function formatDateLong(isoDateStr){
+    if(!isoDateStr) return null;
+    const [y, m, d] = isoDateStr.split('-').map(Number);
+    if(!y || !m || !d) return null;
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+  }
+
   async function refreshTiming(){
     const data = await fetchTimingData();
     if(!data) return; // stay in standby state
@@ -718,6 +728,18 @@
     // data.lastLap is the most recent lap time for the tracked driver row.
     if(data.trackStatus) setTrackStatus(data.trackStatus, data.trackStatusLabel || data.trackStatus.toUpperCase());
     if(data.lastLap) setLastLap(data.lastLap);
+
+    // Drive the hero readout too — his most current fastest lap and
+    // the date it was set, once real data has come back from the feed.
+    if(data.lastLap){
+      const heroBestLapEl = document.getElementById('heroBestLap');
+      if(heroBestLapEl) heroBestLapEl.textContent = data.lastLap;
+    }
+    const formattedDate = formatDateLong(data.date);
+    if(formattedDate){
+      const heroLastOnTrackEl = document.getElementById('heroLastOnTrack');
+      if(heroLastOnTrackEl) heroLastOnTrackEl.textContent = formattedDate;
+    }
   }
   refreshTiming();
   setInterval(refreshTiming, 15000); // every 15 seconds
