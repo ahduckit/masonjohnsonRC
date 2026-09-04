@@ -2,8 +2,19 @@
   "ok": true,
   "trackStatus": "off",
   "trackStatusLabel": "Standby",
-  "lastLap": null,
-  "rows": [],
-  "asOf": null,
-  "note": "Placeholder — GitHub Actions hasn't run yet. This file is overwritten automatically once .github/workflows/update-timing.yml runs."
+  "lastLap": "24.904s",
+  "rows": [
+    {
+      "pos": "—",
+      "driver": "Mason Johnson",
+      "cls": "Rookie",
+      "laps": 9,
+      "bestLap": "24.904s",
+      "status": "Session Logged"
+    }
+  ],
+  "sessionTime": "6:15:51pm",
+  "date": "2026-09-03",
+  "asOf": "2026-09-04T04:11:18.899Z",
+  "source": "practice"
 }
