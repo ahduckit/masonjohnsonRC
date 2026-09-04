@@ -363,6 +363,16 @@
 
   @media (max-width:900px){
     nav ul{display:none;}
+    nav ul.mobile-open{
+      display:flex;flex-direction:column;gap:0;
+      position:absolute;top:100%;left:0;right:0;z-index:49;
+      background:var(--carbon-1);border-bottom:1px solid var(--line);
+      box-shadow:0 12px 24px rgba(0,0,0,0.4);
+    }
+    nav ul.mobile-open li{width:100%;}
+    nav ul.mobile-open a{
+      display:block;padding:18px 28px;border-top:1px solid var(--line);font-size:0.85rem;
+    }
     .nav-toggle{display:block;}
     .brands-label{display:none;}
     .brands-inner{height:34px;}
@@ -375,6 +385,16 @@
     .gallery{grid-template-columns:repeat(2,1fr);}
     .log-row{grid-template-columns:1fr;gap:6px;}
     .log-result{text-align:left;}
+    .timing-panel{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .timing-table{min-width:600px;}
+    .timing-table th,.timing-table td{padding:10px 14px;font-size:0.78rem;}
+    section{padding:76px 0;}
+  }
+
+  @media (max-width:480px){
+    .brand{font-size:0.95rem;gap:10px;}
+    .brand small{display:none;}
+    .nav-right{gap:12px;}
   }
 </style>
 </head>
@@ -395,6 +415,15 @@
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <div class="nav-status">
+        <span class="led led-off" id="trackLed"></span>
+        <span class="nav-status-label">Track <b id="trackStatusText">Standby</b></span>
+        <span class="nav-status-divider"></span>
+        <span class="nav-status-lap-label">Last Lap</span>
+        <span class="nav-status-lap-value" id="lastLapValue">--.---</span>
+      </div>
+      <button class="nav-toggle" aria-label="menu" aria-expanded="false">≡</button>
+    </div>
   </nav>
   <div class="brands-bar">
     <div class="wrap brands-inner">
@@ -405,15 +434,6 @@
         <span class="brand-logo"><img src="hobbywing.png" alt="Hobbywing"></span>
         <span class="brand-logo"><img src="1up.png" alt="1UP Racing"></span>
       </div>
-   <div class="nav-status">
-        <span class="led led-off" id="trackLed"></span>
-        <span class="nav-status-label">Track <b id="trackStatusText">Standby</b></span>
-        <span class="nav-status-divider"></span>
-        <span class="nav-status-lap-label">Last Lap</span>
-        <span class="nav-status-lap-value" id="lastLapValue">--.---</span>
-      </div>
-      <button class="nav-toggle" aria-label="menu">≡</button>
-    </div>
     </div>
   </div>
 </header>
@@ -626,6 +646,27 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // mobile nav menu
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('nav ul');
+  function closeMobileNav(){
+    navMenu.classList.remove('mobile-open');
+    navToggle.textContent = '≡';
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+  navToggle.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    const isOpen = navMenu.classList.toggle('mobile-open');
+    navToggle.textContent = isOpen ? '✕' : '≡';
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
+  document.addEventListener('click', (e)=>{
+    if(navMenu.classList.contains('mobile-open') && !navMenu.contains(e.target) && e.target !== navToggle){
+      closeMobileNav();
+    }
+  });
 
   // reveal on scroll
   const revealEls = document.querySelectorAll('.reveal');
