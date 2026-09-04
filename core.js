@@ -79,6 +79,13 @@ export function parseSessionRow(rowText) {
   };
 }
 
+export function subtractDays(dateStr, days) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  dt.setUTCDate(dt.getUTCDate() - days);
+  return dt.toISOString().slice(0, 10);
+}
+
 export function minutesAgo(timeOfDayStr, dateStr) {
   if (!timeOfDayStr) return null;
   try {
@@ -90,31 +97,60 @@ export function minutesAgo(timeOfDayStr, dateStr) {
   }
 }
 
-// The whole pipeline: fetch -> match -> parse -> build the JSON
+// Walks backward day by day from today (in track-local time) collecting
+// the driver's sessions, until it has `maxSessions` or has looked back
+// `maxDaysBack` days. Stops early once enough sessions are found, so
+// the common case (he practiced recently) is just 1-2 requests, not a
+// full 14-day scan every run.
+export async function getRecentSessions(maxSessions = 3, maxDaysBack = 14) {
+  const sessions = [];
+  const errors = [];
+  let daysBack = 0;
+
+  while (sessions.length < maxSessions && daysBack <= maxDaysBack) {
+    const date = subtractDays(todayInTrackTZ(), daysBack);
+    const url = `https://${TRACK_SLUG}.liverc.com/practice/?p=session_list&d=${date}`;
+    try {
+      const html = await fetchHtml(url);
+      const matchedRows = extractMatchingRows(html);
+      // LiveRC's practice list is observed newest-first within a day.
+      for (const rowText of matchedRows) {
+        if (sessions.length >= maxSessions) break;
+        sessions.push({ date, ...parseSessionRow(rowText) });
+      }
+    } catch (err) {
+      errors.push(`${date}: ${err.message}`);
+    }
+    daysBack++;
+  }
+
+  return { sessions, daysChecked: daysBack, errors };
+}
+
+// The whole pipeline: look back for recent sessions -> build the JSON
 // payload the site's fetchTimingData() expects.
 export async function getLiveTimingPayload(debug = false) {
   try {
-    const date = todayInTrackTZ();
-    const url = `https://${TRACK_SLUG}.liverc.com/practice/?p=session_list&d=${date}`;
-    const html = await fetchHtml(url);
-    const matchedRows = extractMatchingRows(html);
+    const { sessions, daysChecked, errors } = await getRecentSessions(3, 14);
 
-    if (matchedRows.length === 0) {
+    if (sessions.length === 0) {
       return {
         ok: true,
         trackStatus: 'off',
         trackStatusLabel: 'Standby',
         lastLap: null,
         rows: [],
+        recentSessions: [],
         asOf: new Date().toISOString(),
-        note: `No sessions found for ${DRIVER_NAME} on ${date}.`,
-        ...(debug ? { debugUrl: url } : {})
+        note: `No sessions found for ${DRIVER_NAME} in the last ${daysChecked} day(s).`,
+        ...(debug ? { debugErrors: errors } : {})
       };
     }
 
-    // LiveRC's practice list is observed newest-first.
-    const latest = parseSessionRow(matchedRows[0]);
-    const age = minutesAgo(latest.time, date);
+    // sessions[0] is his single most recent session across whichever
+    // day it landed on.
+    const latest = sessions[0];
+    const age = minutesAgo(latest.time, latest.date);
     const isActive = age !== null && age <= ACTIVE_WINDOW_MINUTES;
 
     const payload = {
@@ -132,14 +168,23 @@ export async function getLiveTimingPayload(debug = false) {
           status: isActive ? 'On Track' : 'Session Logged'
         }
       ],
+      // Up to 3 most recent sessions (may span multiple days), for
+      // the site's Practice Breakdown table.
+      recentSessions: sessions.map(s => ({
+        date: s.date,
+        time: s.time,
+        laps: s.laps,
+        fastestLap: s.fastestLap ? `${s.fastestLap}s` : '—',
+        avgLap: s.avgLap ? `${s.avgLap}s` : '—'
+      })),
       sessionTime: latest.time,
-      date,
+      date: latest.date,
       asOf: new Date().toISOString(),
       source: 'practice'
     };
 
     if (debug) {
-      payload.debug = { matchedRowCount: matchedRows.length, matchedRows, parsedLatest: latest, sourceUrl: url };
+      payload.debug = { sessionCount: sessions.length, daysChecked, sessions, errors };
     }
 
     return payload;
@@ -150,6 +195,7 @@ export async function getLiveTimingPayload(debug = false) {
       trackStatusLabel: 'Standby',
       lastLap: null,
       rows: [],
+      recentSessions: [],
       error: err.message,
       asOf: new Date().toISOString()
     };
