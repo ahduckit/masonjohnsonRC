@@ -6,7 +6,7 @@ name: Update Live Timing
     # minute (can run a few minutes late under load), and GitHub
     # auto-disables scheduled workflows after 60 days with no repo
     # activity — a commit or manual run re-enables it.
-    - cron: '*/15 * * * *'
+    - cron: '*/1 * * * *'
   workflow_dispatch: {} # lets you trigger it manually from the Actions tab
 
 permissions:
@@ -17,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24' # matches where GitHub Actions runners are headed (Node 20 removed Sept 16, 2026)
 
       - name: Fetch latest LiveRC data
         run: node update-timing.mjs
