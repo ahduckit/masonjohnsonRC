@@ -535,7 +535,7 @@
           <thead>
             <tr><th>Date</th><th>Time</th><th>Class</th><th>Laps</th><th>Fastest Lap</th><th>Avg Lap</th></tr>
           </thead>
-          <tbody>
+          <tbody id="practiceBody">
             <tr><td>Aug 29, 2026</td><td>6:33pm</td><td>Rookie</td><td>31</td><td class="best">26.177s</td><td>40.580s</td></tr>
             <tr><td>Aug 29, 2026</td><td>5:37pm</td><td>Rookie</td><td>23</td><td class="best">27.808s</td><td>39.768s</td></tr>
             <tr><td>Aug 29, 2026</td><td>4:08pm</td><td>Rookie</td><td>38</td><td class="best">27.560s</td><td>38.692s</td></tr>
@@ -739,6 +739,23 @@
     if(formattedDate){
       const heroLastOnTrackEl = document.getElementById('heroLastOnTrack');
       if(heroLastOnTrackEl) heroLastOnTrackEl.textContent = formattedDate;
+    }
+
+    // Practice Breakdown table — his last (up to) 3 sessions, which
+    // may span multiple days if today's had fewer than 3.
+    if(Array.isArray(data.recentSessions) && data.recentSessions.length > 0){
+      const practiceBody = document.getElementById('practiceBody');
+      if(practiceBody){
+        practiceBody.innerHTML = data.recentSessions.map(s => `
+          <tr>
+            <td>${formatDateLong(s.date) || s.date}</td>
+            <td>${s.time ?? '—'}</td>
+            <td>Rookie</td>
+            <td>${s.laps ?? '—'}</td>
+            <td class="best">${s.fastestLap ?? '—'}</td>
+            <td>${s.avgLap ?? '—'}</td>
+          </tr>`).join('');
+      }
     }
   }
   refreshTiming();
