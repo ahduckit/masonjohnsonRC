@@ -2,46 +2,29 @@
   "ok": true,
   "trackStatus": "off",
   "trackStatusLabel": "Standby",
-  "lastLap": "25.432s",
+  "lastLap": "23.400s",
   "rows": [
     {
       "pos": "—",
       "driver": "Mason Johnson",
       "cls": "Rookie",
-      "laps": 30,
-      "bestLap": "25.432s",
+      "laps": 54,
+      "bestLap": "23.400s",
       "status": "Session Logged"
     }
   ],
   "recentSessions": [
-    {
-      "date": "2026-09-05",
-      "time": "7:38:07pm",
-      "laps": 30,
-      "fastestLap": "25.432s",
-      "avgLap": "44.105s"
-    },
-    {
-      "date": "2026-09-05",
-      "time": "6:39:25pm",
-      "laps": 55,
-      "fastestLap": "22.840s",
-      "avgLap": "41.368s"
-    },
-    {
-      "date": "2026-09-05",
-      "time": "5:53:09pm",
-      "laps": 42,
-      "fastestLap": "24.766s",
-      "avgLap": "47.873s"
-    }
+    { "date": "2026-09-05", "time": "4:34:53pm", "laps": 54, "fastestLap": "23.400s", "avgLap": "33.955s" },
+    { "date": "2026-09-03", "time": "6:15:51pm", "laps": 59, "fastestLap": "24.904s", "avgLap": "41.106s" },
+    { "date": "2026-09-03", "time": "5:34:44pm", "laps": 29, "fastestLap": "25.327s", "avgLap": "42.013s" }
   ],
-  "sessionTime": "7:38:07pm",
+  "sessionTime": "4:34:53pm",
   "date": "2026-09-05",
-  "asOf": "2026-09-06T14:52:15.144Z",
-  "source": "practice",
-  "personalBestLap": "22.840s",
-  "personalBestSessionLaps": 55,
+  "personalBestLap": "23.400s",
+  "personalBestSessionLaps": 54,
   "personalBestDate": "2026-09-05",
-  "personalBestTime": "6:39:25pm"
+  "personalBestTime": "4:34:53pm",
+  "asOf": "2026-09-06T06:00:00.000Z",
+  "source": "practice",
+  "note": "Manually seeded with a verified new PR (23.400s, Sept 5, 2026). GitHub Actions will keep this current going forward, ratcheting personalBestLap forward only when a genuinely faster lap shows up."
 }
