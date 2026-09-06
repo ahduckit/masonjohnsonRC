@@ -469,7 +469,7 @@
 </header>
 
 <section class="hero">
-  <video class="hero-bg-video" src="race.mp4" poster="race-poster.jpg" autoplay muted loop playsinline
+  <video id="heroBgVideo" class="hero-bg-video" src="race.mp4" poster="race-poster.jpg" autoplay muted loop playsinline
     disablePictureInPicture disableRemotePlayback aria-hidden="true"></video>
   <!-- Crop note: this is portrait video filling a wide container, so object-fit:cover
        crops the TOP/BOTTOM (not sides). object-position:center is a neutral default —
@@ -699,6 +699,37 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Hero background video — explicitly set muted and call play() via JS.
+  // Some browsers don't reliably honor autoplay from HTML attributes alone;
+  // setting the property and calling play() directly is the more robust path.
+  const heroBgVideo = document.getElementById('heroBgVideo');
+  if(heroBgVideo){
+    heroBgVideo.muted = true;
+    heroBgVideo.playsInline = true;
+    const tryPlay = () => {
+      const playPromise = heroBgVideo.play();
+      if(playPromise !== undefined){
+        playPromise.catch(() => {
+          // Autoplay was blocked (e.g. browser policy, low-power mode).
+          // Fall back to playing on the first user interaction anywhere
+          // on the page, which browsers always allow.
+          const resumeOnInteraction = () => {
+            heroBgVideo.play().catch(() => {});
+            document.removeEventListener('click', resumeOnInteraction);
+            document.removeEventListener('touchstart', resumeOnInteraction);
+          };
+          document.addEventListener('click', resumeOnInteraction, { once: true });
+          document.addEventListener('touchstart', resumeOnInteraction, { once: true });
+        });
+      }
+    };
+    if(heroBgVideo.readyState >= 2){
+      tryPlay();
+    } else {
+      heroBgVideo.addEventListener('loadeddata', tryPlay, { once: true });
+    }
+  }
 
   // mobile nav menu
   const navToggle = document.querySelector('.nav-toggle');
