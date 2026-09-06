@@ -703,31 +703,28 @@
   // Hero background video — explicitly set muted and call play() via JS.
   // Some browsers don't reliably honor autoplay from HTML attributes alone;
   // setting the property and calling play() directly is the more robust path.
+  // Calling play() doesn't require waiting for the video to finish loading —
+  // the browser queues it automatically, so no readyState check is needed
+  // (an earlier version waited for a 'loadeddata' event, which risked never
+  // firing our listener at all if that event had already fired first).
   const heroBgVideo = document.getElementById('heroBgVideo');
   if(heroBgVideo){
     heroBgVideo.muted = true;
     heroBgVideo.playsInline = true;
-    const tryPlay = () => {
-      const playPromise = heroBgVideo.play();
-      if(playPromise !== undefined){
-        playPromise.catch(() => {
-          // Autoplay was blocked (e.g. browser policy, low-power mode).
-          // Fall back to playing on the first user interaction anywhere
-          // on the page, which browsers always allow.
-          const resumeOnInteraction = () => {
-            heroBgVideo.play().catch(() => {});
-            document.removeEventListener('click', resumeOnInteraction);
-            document.removeEventListener('touchstart', resumeOnInteraction);
-          };
-          document.addEventListener('click', resumeOnInteraction, { once: true });
-          document.addEventListener('touchstart', resumeOnInteraction, { once: true });
-        });
-      }
-    };
-    if(heroBgVideo.readyState >= 2){
-      tryPlay();
-    } else {
-      heroBgVideo.addEventListener('loadeddata', tryPlay, { once: true });
+    const playPromise = heroBgVideo.play();
+    if(playPromise !== undefined){
+      playPromise.catch(() => {
+        // Autoplay was blocked (e.g. browser policy, low-power mode).
+        // Fall back to playing on the first user interaction anywhere
+        // on the page, which browsers always allow.
+        const resumeOnInteraction = () => {
+          heroBgVideo.play().catch(() => {});
+          document.removeEventListener('click', resumeOnInteraction);
+          document.removeEventListener('touchstart', resumeOnInteraction);
+        };
+        document.addEventListener('click', resumeOnInteraction, { once: true });
+        document.addEventListener('touchstart', resumeOnInteraction, { once: true });
+      });
     }
   }
 
