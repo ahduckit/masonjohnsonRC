@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mason Johnson RC | 17.5 Blinky Stock — Coyote Hobbies Raceway</title>
 <meta name="description" content="Mason Johnson RC — competitive 1/10 buggy racing at Coyote Hobbies Raceway, Victorville CA. RC10B7.1D 2WD / RC10B84 4WD, 17.5 blinky stock.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon-512.png" sizes="512x512" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -126,20 +131,26 @@
     position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
     padding-top:110px;overflow:hidden;
   }
+  .hero-bg-video{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:center;z-index:0;
+  }
   .hero::before{
-    content:"";position:absolute;top:-20%;right:-10%;width:60%;height:140%;
-    background:radial-gradient(ellipse at center, rgba(46,155,230,0.14), transparent 65%);
-    z-index:0;
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at top right, rgba(46,155,230,0.18), transparent 60%),
+      linear-gradient(180deg, rgba(10,12,15,0.55) 0%, rgba(10,12,15,0.75) 55%, rgba(10,12,15,0.92) 100%);
+    z-index:1;
   }
   .hero-watermark{
     position:absolute;top:50%;right:-2%;transform:translateY(-50%);
-    display:flex;z-index:0;pointer-events:none;
+    display:flex;z-index:1;pointer-events:none;
     font-family:var(--font-display);font-weight:800;
     font-size:min(40vw,520px);line-height:1;letter-spacing:-0.02em;
   }
   .hero-watermark .wm-m{color:var(--blue);opacity:0.06;}
   .hero-watermark .wm-j{color:var(--orange);opacity:0.06;}
-  .hero .wrap{position:relative;z-index:1;}
+  .hero .wrap{position:relative;z-index:2;}
   .eyebrow{
     font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.22em;color:var(--orange);
     display:flex;align-items:center;gap:10px;margin-bottom:22px;text-transform:uppercase;
@@ -213,7 +224,7 @@
 
   .scroll-cue{
     position:absolute;bottom:32px;left:28px;font-family:var(--font-mono);font-size:0.65rem;
-    color:var(--steel);letter-spacing:0.15em;display:flex;align-items:center;gap:8px;z-index:1;
+    color:var(--steel);letter-spacing:0.15em;display:flex;align-items:center;gap:8px;z-index:2;
   }
   .scroll-cue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--steel),transparent);animation:scrolldown 1.8s ease-in-out infinite;}
   @keyframes scrolldown{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
@@ -262,6 +273,24 @@
     font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.06em;color:var(--blue);
     border:1px solid var(--blue-dim);padding:7px 13px;text-transform:uppercase;
   }
+
+  .video-frame{
+    aspect-ratio:9/16;max-width:380px;margin:0 auto;
+    background:var(--carbon-1);border:1px solid var(--line);
+    position:relative;overflow:hidden;
+  }
+  .video-frame::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(46,155,230,0.05) 24px, rgba(46,155,230,0.05) 25px);
+  }
+  .video-frame video,.video-frame iframe{
+    width:100%;height:100%;display:block;border:none;object-fit:cover;position:relative;z-index:1;
+  }
+  .video-placeholder{
+    position:relative;z-index:1;width:100%;height:100%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  }
+  .video-placeholder svg{opacity:0.35;}
 
   /* GARAGE */
   .cars{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
@@ -412,6 +441,7 @@
         <li><a href="#garage">Garage</a></li>
         <li><a href="#timing">Live Timing</a></li>
         <li><a href="#results">Results</a></li>
+        <li><a href="#footage">Footage</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -439,6 +469,12 @@
 </header>
 
 <section class="hero">
+  <video class="hero-bg-video" src="race.mp4" poster="race-poster.jpg" autoplay muted loop playsinline
+    disablePictureInPicture disableRemotePlayback aria-hidden="true"></video>
+  <!-- Crop note: this is portrait video filling a wide container, so object-fit:cover
+       crops the TOP/BOTTOM (not sides). object-position:center is a neutral default —
+       adjust to e.g. "center 30%" (show more top) or "center 70%" (show more bottom)
+       in .hero-bg-video above if the crop isn't framing the action well once you see it live. -->
   <div class="hero-watermark" aria-hidden="true"><span class="wm-m">M</span><span class="wm-j">J</span></div>
   <div class="wrap">
     <div class="eyebrow">Coyote Hobbies Raceway · Victorville, CA</div>
@@ -587,10 +623,26 @@
   </div>
 </section>
 
+<section id="footage">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Race Footage</h2><span class="sec-num">05 / ONBOARD</span>
+    </div>
+    <!-- VIDEO SWAP: replace the .video-placeholder div below with one of:
+         - an uploaded file:  <video src="race.mp4" controls playsinline></video>
+         - a YouTube link:    <iframe src="https://www.youtube.com/embed/VIDEO_ID"
+                                 title="Race footage" frameborder="0" allowfullscreen></iframe>
+         Keep the .video-frame wrapper either way — it holds the sizing. -->
+    <div class="video-frame reveal">
+      <video src="race.mp4" poster="race-poster.jpg" controls playsinline preload="metadata"></video>
+    </div>
+  </div>
+</section>
+
 <section id="gallery">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Gallery</h2><span class="sec-num">05 / PADDOCK</span>
+      <h2>Gallery</h2><span class="sec-num">06 / PADDOCK</span>
     </div>
   </div>
   <div class="gallery reveal">
@@ -606,7 +658,7 @@
 <section id="contact">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Contact</h2><span class="sec-num">06 / PIT LANE</span>
+      <h2>Contact</h2><span class="sec-num">07 / PIT LANE</span>
     </div>
     <div class="contact-grid">
       <form class="reveal" onsubmit="return false;">
