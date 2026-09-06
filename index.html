@@ -275,7 +275,7 @@
   }
 
   .video-frame{
-    aspect-ratio:9/16;max-width:380px;margin:0 auto;
+    aspect-ratio:4/3;max-width:640px;margin:0 auto;
     background:var(--carbon-1);border:1px solid var(--line);
     position:relative;overflow:hidden;
   }
@@ -628,13 +628,14 @@
     <div class="sec-head">
       <h2>Race Footage</h2><span class="sec-num">05 / ONBOARD</span>
     </div>
-    <!-- VIDEO SWAP: replace the .video-placeholder div below with one of:
-         - an uploaded file:  <video src="race.mp4" controls playsinline></video>
+    <!-- VIDEO SWAP: to change this clip later, replace src/poster below with:
+         - an uploaded file:  <video src="yourfile.mp4" controls playsinline></video>
          - a YouTube link:    <iframe src="https://www.youtube.com/embed/VIDEO_ID"
                                  title="Race footage" frameborder="0" allowfullscreen></iframe>
-         Keep the .video-frame wrapper either way — it holds the sizing. -->
+         Keep the .video-frame wrapper either way — it holds the sizing.
+         Currently showing: practice-lap.mp4 (landscape 4:3). -->
     <div class="video-frame reveal">
-      <video src="practicelap.mp4" poster="" controls playsinline preload="metadata"></video>
+      <video src="practice-lap.mp4" poster="practice-lap-poster.jpg" controls playsinline preload="metadata"></video>
     </div>
   </div>
 </section>
