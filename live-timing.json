@@ -2,44 +2,11 @@
   "ok": true,
   "trackStatus": "off",
   "trackStatusLabel": "Standby",
-  "lastLap": "23.932s",
-  "rows": [
-    {
-      "pos": "—",
-      "driver": "Mason Johnson",
-      "cls": "Rookie",
-      "laps": 49,
-      "bestLap": "23.932s",
-      "status": "Session Logged"
-    }
-  ],
-  "recentSessions": [
-    {
-      "date": "2026-09-06",
-      "time": "4:30:27pm",
-      "laps": 49,
-      "fastestLap": "23.932s",
-      "avgLap": "37.976s"
-    },
-    {
-      "date": "2026-09-06",
-      "time": "3:39:51pm",
-      "laps": 33,
-      "fastestLap": "23.972s",
-      "avgLap": "34.143s"
-    },
-    {
-      "date": "2026-09-06",
-      "time": "2:37:31pm",
-      "laps": 28,
-      "fastestLap": "23.857s",
-      "avgLap": "40.615s"
-    }
-  ],
-  "sessionTime": "4:30:27pm",
-  "date": "2026-09-06",
-  "asOf": "2026-09-10T20:06:20.583Z",
-  "source": "practice",
+  "lastLap": null,
+  "rows": [],
+  "recentSessions": [],
+  "asOf": "2026-09-10T20:07:27.839Z",
+  "note": "No sessions found for MASON JOHNSON in the last 15 day(s).",
   "personalBestLap": "12.888s",
   "personalBestSessionLaps": 48,
   "personalBestDate": "2026-09-04",
