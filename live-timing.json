@@ -29,16 +29,16 @@
       "avgLap": "—"
     },
     {
-      "date": "2026-09-11",
-      "time": "5:45:07pm",
-      "laps": 31,
-      "fastestLap": "24.654s",
-      "avgLap": "49.002s"
+      "date": "2026-09-06",
+      "time": "4:30:27pm",
+      "laps": 49,
+      "fastestLap": "23.932s",
+      "avgLap": "37.976s"
     }
   ],
   "sessionTime": "3:18:10pm",
   "date": "2026-09-13",
-  "asOf": "2026-09-17T00:22:25.544Z",
+  "asOf": "2026-09-17T00:23:40.224Z",
   "source": "practice",
   "personalBestLap": "12.888s",
   "personalBestSessionLaps": 48,
