@@ -2,43 +2,43 @@
   "ok": true,
   "trackStatus": "off",
   "trackStatusLabel": "Standby",
-  "lastLap": "24.070s",
+  "lastLap": "25.564s",
   "rows": [
     {
       "pos": "—",
       "driver": "Mason Johnson",
       "cls": "Rookie",
-      "laps": 4,
-      "bestLap": "24.070s",
+      "laps": 14,
+      "bestLap": "25.564s",
       "status": "Session Logged"
     }
   ],
   "recentSessions": [
+    {
+      "date": "2026-09-19",
+      "time": "12:27:28pm",
+      "laps": 14,
+      "fastestLap": "25.564s",
+      "avgLap": "54.469s"
+    },
+    {
+      "date": "2026-09-19",
+      "time": null,
+      "laps": null,
+      "fastestLap": "25.564s",
+      "avgLap": "—"
+    },
     {
       "date": "2026-09-18",
       "time": "7:33:24pm",
       "laps": 4,
       "fastestLap": "24.070s",
       "avgLap": "62.996s"
-    },
-    {
-      "date": "2026-09-18",
-      "time": "7:21:22pm",
-      "laps": 2,
-      "fastestLap": "31.789s",
-      "avgLap": "32.540s"
-    },
-    {
-      "date": "2026-09-18",
-      "time": "6:58:32pm",
-      "laps": 6,
-      "fastestLap": "33.911s",
-      "avgLap": "52.076s"
     }
   ],
-  "sessionTime": "7:33:24pm",
-  "date": "2026-09-18",
-  "asOf": "2026-09-19T19:50:12.179Z",
+  "sessionTime": "12:27:28pm",
+  "date": "2026-09-19",
+  "asOf": "2026-09-19T19:51:13.781Z",
   "source": "practice",
   "personalBestLap": "12.888s",
   "personalBestSessionLaps": 48,
